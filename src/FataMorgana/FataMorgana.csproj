@@ -3,9 +3,7 @@
   <PropertyGroup>
     <OutputType>exe</OutputType>
     <TargetFramework>netcoreapp3.0</TargetFramework>
-    <!-- The property was currently disabled because of bugs.
-    <LangVersion>preview</LangVersion>
-    -->
+    <LangVersion>8</LangVersion>
     <NullableContextOptions>enable</NullableContextOptions>
     <AssemblyName>fata-morgana</AssemblyName>
     <RootAllApplicationAssemblies>false</RootAllApplicationAssemblies>
