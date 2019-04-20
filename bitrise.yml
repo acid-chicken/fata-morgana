@@ -29,5 +29,5 @@ workflows:
             export DOTNET_PATH="$HOME/dotnet"
             export PATH="$DOTNET_PATH:$PATH"
             dotnet publish -r osx-x64 -c Release -o dist --version-suffix "osx-$BITRISE_BUILD_NUMBER"
-            tar -jcvf "$BITRISE_DEPLOY_DIR/linux-x64.tar.bz2" dist
+            tar -jcvf "$BITRISE_DEPLOY_DIR/osx-x64.tar.bz2" dist
     - deploy-to-bitrise-io: {}
