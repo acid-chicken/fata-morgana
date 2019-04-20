@@ -26,9 +26,15 @@ namespace AcidChicken.FataMorgana
 
         static void Start()
         {
-            _server.CertificateManager.TrustRootCertificate(true);
+            _server.CertificateManager.RootCertificateIssuerName = "Izumi Ohishi";
+
+            _server.CertificateManager.RootCertificateName = "Fata Morgana Root Certificate Authority";
 
             _server.CertificateManager.SaveFakeCertificates = true;
+
+            _server.CertificateManager.CreateRootCertificate(true);
+
+            _server.CertificateManager.TrustRootCertificate(true);
 
             _server.BeforeResponse += async (sender, e) =>
             {

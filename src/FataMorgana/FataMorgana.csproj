@@ -6,6 +6,8 @@
     <LangVersion>8</LangVersion>
     <NullableContextOptions>enable</NullableContextOptions>
     <AssemblyName>fata-morgana</AssemblyName>
+    <AssemblyVersion>1.0.1</AssemblyVersion>
+    <Version>1.0.1</Version>
     <RootAllApplicationAssemblies>false</RootAllApplicationAssemblies>
     <IlcGenerateCompleteTypeMetadata>false</IlcGenerateCompleteTypeMetadata>
     <IlcGenerateStackTraceData>false</IlcGenerateStackTraceData>
