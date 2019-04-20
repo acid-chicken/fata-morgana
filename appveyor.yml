@@ -25,6 +25,6 @@ before_build:
 
     Set-Item Env:Path "C:\projects\fata-morgana\dotnet;$Env:Path"
 build_script:
-- pwsh: .\dotnet\dotnet.exe publish -c Release -r win-x64 -o dist
+- pwsh: .\dotnet\dotnet.exe publish -c Release -r win-x64 -o dist --version-suffix "win-$APPVEYOR_BUILD_NUMBER"
 artifacts:
 - path: 'dist\'
