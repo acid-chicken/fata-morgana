@@ -11,6 +11,13 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install latest .NET Core SDK manually
+          command: |
+            wget https://download.visualstudio.microsoft.com/download/pr/26d4dc1f-f674-4902-9921-f287f65266f9/ef8a67939f0c3e5729b2674a5e013328/dotnet-sdk-3.0.100-preview4-011223-linux-x64.tar.gz
+            mkdir -p $HOME/dotnet && tar zxf dotnet-sdk-3.0.100-preview4-011223-linux-x64.tar.gz -C $HOME/dotnet
+            export DOTNET_ROOT="$HOME/dotnet"
+            export PATH="$DOTNET_PATH:$PATH"
+      - run:
           name: Checking Hashes
           command: |
             dotnet --version > DOTNET_SDK_VERSION
