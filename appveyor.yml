@@ -19,10 +19,10 @@ cache:
   - 'packages'
 before_build:
 - pwsh: >-
-    Invoke-WebRequest -Uri https://download.visualstudio.microsoft.com/download/pr/a3fe6da8-1ec8-48e5-b93d-cbf6cbe4e1ad/b4c6e212cda446fcc6c305296130e76b/dotnet-sdk-3.0.100-preview4-011223-win-x64.zip -OutFile dotnet-sdk-3.0.100-preview4-011223-win-x64.zip
-    Expand-Archive dotnet-sdk-3.0.100-preview4-011223-win-x64.zip -DestinationPath dotnet
+    Invoke-WebRequest -Uri "https://download.visualstudio.microsoft.com/download/pr/a3fe6da8-1ec8-48e5-b93d-cbf6cbe4e1ad/b4c6e212cda446fcc6c305296130e76b/dotnet-sdk-3.0.100-preview4-011223-win-x64.zip" -OutFile "dotnet-sdk-3.0.100-preview4-011223-win-x64.zip"
+    Expand-Archive "dotnet-sdk-3.0.100-preview4-011223-win-x64.zip" -DestinationPath "dotnet"
     Set-Item Env:Path "C:\projects\fata-morgana\dotnet;$Env:Path"
 build_script:
-- pwsh: dotnet publish -c Release -r win-x64 -o dåist
+- pwsh: dotnet publish -c Release -r win-x64 -o dist
 artifacts:
 - path: 'dist\'
