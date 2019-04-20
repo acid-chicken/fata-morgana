@@ -1,0 +1,32 @@
+---
+format_version: '6'
+default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
+project_type: other
+trigger_map:
+- push_branch: "*"
+  workflow: primary
+- pull_request_source_branch: "*"
+  workflow: primary
+workflows:
+  primary:
+    steps:
+    - activate-ssh-key:
+        run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
+    - git-clone: {}
+    - script:
+        title: Build Projects
+        inputs:
+        - content: |
+            #!/usr/bin/env bash
+            set -e
+            set -x
+            wget https://download.visualstudio.microsoft.com/download/pr/b52e8baf-37c7-485d-ba4d-ef17af92b2fe/55f91ca67d8a29b62e685f28939077b6/dotnet-sdk-3.0.100-preview4-011223-osx-x64.tar.gz
+            mkdir -p $HOME/dotnet
+            tar zxf dotnet-sdk-3.0.100-preview4-011223-osx-x64.tar.gz -C $HOME/dotnet
+            export CppCompilerAndLinker=clang
+            export DOTNET_SKIP_FIRST_TIME_EXPERIENCE=true
+            export NUGET_XMLDOC_MODE=skip
+            export DOTNET_PATH="$HOME/dotnet"
+            export PATH="$DOTNET_PATH:$PATH"
+            dotnet publish -r osx-x64 -c Release -o $BITRISE_DEPLOY_DIR --version-suffix "osx-$BITRISE_BUILD_NUMBER"
+    - deploy-to-bitrise-io: {}
