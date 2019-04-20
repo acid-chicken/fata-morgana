@@ -13,13 +13,15 @@
     <IlcGenerateCompleteTypeMetadata>false</IlcGenerateCompleteTypeMetadata>
     <IlcGenerateStackTraceData>false</IlcGenerateStackTraceData>
     <IlcDisableReflection>true</IlcDisableReflection>
-    -->
     <IlcOptimizationPreference>Size</IlcOptimizationPreference>
     <IlcFoldIdenticalMethodBodies>true</IlcFoldIdenticalMethodBodies>
+    -->
   </PropertyGroup>
 
   <ItemGroup>
+    <!-- The property was currently disabled because of bugs.
     <PackageReference Include="Microsoft.DotNet.ILCompiler" Version="1.0.0-alpha-*" />
+    -->
     <PackageReference Include="SkiaSharp" Version="1.68.0" />
     <PackageReference Include="Titanium.Web.Proxy" Version="3.0.907" />
   </ItemGroup>

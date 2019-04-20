@@ -96,7 +96,7 @@ namespace AcidChicken.FataMorgana
 
             if (!response.IsSuccessStatusCode)
             {
-                return (null, new byte[0]);
+                return (null, Array.Empty<byte>());
             }
 
             using var body = await response.Content.ReadAsStreamAsync();
