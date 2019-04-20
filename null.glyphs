@@ -79393,6 +79393,22 @@ width = 600;
 unicode = 25CA;
 },
 {
+glyphname = boxLightHorizontal;
+lastChange = "2019-04-20 18:52:38 +0000";
+layers = (
+{
+components = (
+{
+name = space;
+}
+);
+layerId = "BDDB3A9A-0B3B-4FAF-9EED-DE1156A531BC";
+width = 600;
+}
+);
+unicode = 2500;
+},
+{
 glyphname = at;
 lastChange = "2019-04-19 18:41:50 +0000";
 layers = (
