@@ -7,6 +7,7 @@
     <NullableContextOptions>enable</NullableContextOptions>
     <AssemblyName>fata-morgana</AssemblyName>
     <Version>1.0.2</Version>
+    <PublishSingleFile>true</PublishSingleFile>
     <!-- The property was currently disabled because of bugs.
     <RootAllApplicationAssemblies>false</RootAllApplicationAssemblies>
     <IlcGenerateCompleteTypeMetadata>false</IlcGenerateCompleteTypeMetadata>
