@@ -13,8 +13,8 @@ jobs:
       - run:
           name: Install latest .NET Core SDK manually
           command: |
-            wget https://download.visualstudio.microsoft.com/download/pr/26d4dc1f-f674-4902-9921-f287f65266f9/ef8a67939f0c3e5729b2674a5e013328/dotnet-sdk-3.0.100-preview4-011223-linux-x64.tar.gz
-            mkdir -p $HOME/dotnet && tar zxf dotnet-sdk-3.0.100-preview4-011223-linux-x64.tar.gz -C $HOME/dotnet
+            wget https://download.visualstudio.microsoft.com/download/pr/7e4b403c-34b3-4b3e-807c-d064a7857fe8/95c738f08e163f27867e38c602a433a1/dotnet-sdk-3.0.100-preview5-011568-linux-x64.tar.gz
+            mkdir -p $HOME/dotnet && tar zxf dotnet-sdk-3.0.100-preview5-011568-linux-x64.tar.gz -C $HOME/dotnet
             export DOTNET_ROOT="$HOME/dotnet"
             export PATH="$DOTNET_PATH:$PATH"
       - run:

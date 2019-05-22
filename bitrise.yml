@@ -20,9 +20,9 @@ workflows:
             #!/usr/bin/env bash
             set -e
             set -x
-            wget https://download.visualstudio.microsoft.com/download/pr/b52e8baf-37c7-485d-ba4d-ef17af92b2fe/55f91ca67d8a29b62e685f28939077b6/dotnet-sdk-3.0.100-preview4-011223-osx-x64.tar.gz
+            wget https://download.visualstudio.microsoft.com/download/pr/72d909f3-3b02-483a-892f-7c2baff89529/028027ad9a7ade20ec7b863b39a45b8c/dotnet-sdk-3.0.100-preview5-011568-osx-x64.tar.gz
             mkdir -p $HOME/dotnet
-            tar zxf dotnet-sdk-3.0.100-preview4-011223-osx-x64.tar.gz -C $HOME/dotnet
+            tar zxf dotnet-sdk-3.0.100-preview5-011568-osx-x64.tar.gz -C $HOME/dotnet
             export CppCompilerAndLinker=clang
             export DOTNET_SKIP_FIRST_TIME_EXPERIENCE=true
             export NUGET_XMLDOC_MODE=skip
