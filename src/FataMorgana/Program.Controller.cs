@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -15,8 +16,13 @@ namespace AcidChicken.FataMorgana
     partial class Program
     {
         static readonly Uri _baseUri = new Uri("https://shinycolors.enza.fun/");
+        static readonly Uri _audiosUri = new Uri(_baseUri, "/chocoh/audios/");
         static readonly Uri _imagesUri = new Uri(_baseUri, "/chocoh/images/");
         static readonly Uri _fontsUri = new Uri(_baseUri, "/chocoh/fonts/");
+        static readonly HttpClientHandler _handler = new HttpClientHandler()
+        {
+            AutomaticDecompression = DecompressionMethods.GZip
+        };
         static readonly HttpClient _http = new HttpClient();
         static readonly ProxyServer _server = new ProxyServer
         {
@@ -42,7 +48,24 @@ namespace AcidChicken.FataMorgana
                 {
                     bool match(Uri uri) => e.HttpClient.Request.RequestUri.AbsoluteUri.StartsWith(uri.AbsoluteUri);
 
-                    if (match(_imagesUri))
+                    if (match(_audiosUri))
+                    {
+                        var body = await HandleAudioAsync(e.HttpClient.Request.RequestUri);
+
+                        if (body is null)
+                        {
+                            e.GenericResponse(null, HttpStatusCode.NotFound);
+                        }
+                        else
+                        {
+                            e.Ok(body, new Dictionary<string, HttpHeader>
+                            {
+                                ["Cache-Control"] = new HttpHeader("Cache-Control", "public, max-age=31536000"),
+                                ["Content-Type"] = new HttpHeader("Content-Type", "media/mp4")
+                            });
+                        }
+                    }
+                    else if (match(_imagesUri))
                     {
                         var segments = _imagesUri.MakeRelativeUri(e.HttpClient.Request.RequestUri).ToString().Split('/');
 
@@ -88,6 +111,51 @@ namespace AcidChicken.FataMorgana
 
             _server.AddEndPoint(_endpoint);
             _server.Start();
+        }
+
+        static async Task<byte[]?> HandleAudioAsync(Uri uri)
+        {
+            var parts = _audiosUri.MakeRelativeUri(uri).ToString().Split('?');
+
+            var filename = parts[0];
+
+            var version = parts[1].Split('&').Select(x => x.Split('=')).ToDictionary(x => x[0], x => x[1]).TryGetValue("v", out var value) ? value : "0";
+
+            var directory = Directory.CreateDirectory(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "FataMorgana", "audios", version));
+
+            var fullpath = Path.Combine(directory.FullName, filename);
+
+            if (directory.GetFiles(filename).Any())
+            {
+                return await File.ReadAllBytesAsync(fullpath);
+            }
+
+            using var response = await _http.GetAsync($"https://shinycolors.enza.fun/assets/{filename}");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                return null;
+            }
+
+            using var gzip = await response.Content.ReadAsStreamAsync();
+
+            using var raw = new GZipStream(gzip, CompressionMode.Decompress);
+
+            using var memory = new MemoryStream();
+
+            await raw.CopyToAsync(memory);
+
+            memory.Seek(0, SeekOrigin.Begin);
+
+            var body = memory.ToArray();
+
+            using var file = File.OpenWrite(fullpath);
+
+            await file.WriteAsync(body);
+
+            file.Close();
+
+            return body;
         }
 
         static async Task<(string? contentType, byte[] body)> HandleImageAsync(string status, string id)
