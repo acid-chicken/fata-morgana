@@ -119,7 +119,7 @@ namespace AcidChicken.FataMorgana
 
             var filename = parts[0];
 
-            var version = parts[1].Split('&').Select(x => x.Split('=')).ToDictionary(x => x[0], x => x[1]).TryGetValue("v", out var value) ? value : "0";
+            var version = parts.Length > 1 && parts[1].Split('&').Select(x => x.Split('=')).ToDictionary(x => x[0], x => x[1]).TryGetValue("v", out var value) ? value : "0";
 
             var directory = Directory.CreateDirectory(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "FataMorgana", "audios", version));
 
