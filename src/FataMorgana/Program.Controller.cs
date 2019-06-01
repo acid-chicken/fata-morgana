@@ -30,7 +30,7 @@ namespace AcidChicken.FataMorgana
         };
         static readonly ExplicitProxyEndPoint _endpoint = new ExplicitProxyEndPoint(IPAddress.Any, 8334);
 
-        static void Start()
+        static void ServerStart()
         {
             _server.CertificateManager.RootCertificateIssuerName = "Izumi Ohishi";
 
@@ -111,6 +111,11 @@ namespace AcidChicken.FataMorgana
 
             _server.AddEndPoint(_endpoint);
             _server.Start();
+        }
+
+        static void ServerStop()
+        {
+            _server.Stop();
         }
 
         static async Task<byte[]?> HandleAudioAsync(Uri uri)

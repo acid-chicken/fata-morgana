@@ -9,15 +9,23 @@ namespace AcidChicken.FataMorgana
         {
             Console.Write("大石泉");
 
-            Start();
+            ServerStart();
 
-            Console.WriteLine("すき");
+            Console.Write("す");
+
+            WatcherStart();
+
+            Console.WriteLine("き");
 
             Console.CancelKeyPress += (sender, e) =>
             {
-                Console.Write("きす");
+                Console.Write("き");
 
-                _server.Stop();
+                WatcherStop();
+
+                Console.Write("す");
+
+                ServerStop();
 
                 Console.WriteLine("泉石大");
             };
