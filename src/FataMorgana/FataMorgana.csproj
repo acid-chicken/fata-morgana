@@ -16,6 +16,7 @@
     <IlcOptimizationPreference>Size</IlcOptimizationPreference>
     <IlcFoldIdenticalMethodBodies>true</IlcFoldIdenticalMethodBodies>
     -->
+    <DebugType Condition="'$(Configuration)' == 'Release'">None</DebugType>
   </PropertyGroup>
 
   <ItemGroup>
