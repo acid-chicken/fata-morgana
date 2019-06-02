@@ -28,6 +28,18 @@ namespace AcidChicken.FataMorgana
             "mp4",
             "wav"
         };
+        static readonly IReadOnlyCollection<string> _videoArgs = new []
+        {
+            "-vcodec copy -acodec copy",
+            "-vcodec copy -b:a 1G",
+            "-b:v 1G -acodec copy",
+            "-b:v 1G -b:a 1G"
+        };
+        static readonly IReadOnlyCollection<string> _audioArgs = new []
+        {
+            // "-acodec copy",
+            "-b:a 1G"
+        };
         static readonly FileSystemWatcher _watcher = new FileSystemWatcher(_inPath)
         {
             IncludeSubdirectories = true
@@ -49,55 +61,40 @@ namespace AcidChicken.FataMorgana
                     return;
                 }
 
-                var src = Path.Join(_inPath, e.Name);
+                var src = $"\"{EscapePath(Path.Join(_inPath, e.Name))}\"";
 
-                var dst = Path.Join(_outPath, string.Join('.', section.Reverse()));
+                var dst = $"\"{EscapePath(Path.Join(_outPath, string.Join('.', section.Reverse())))}\"";
 
-                var copy = Process.Start(new ProcessStartInfo(RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? "ffmpeg.exe" : "ffmpeg", $"-loglevel fatal -y -i \"{EscapePath(src)}\" -vcodec copy -acodec copy \"{EscapePath(dst)}\"")
+                var ffmpeg = RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? "ffmpeg.exe" : "ffmpeg";
+
+                var ffprobe = RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? "ffprobe.exe" : "ffprobe";
+
+                var probe = Process.Start(new ProcessStartInfo(ffprobe, $"-v fatal -select_streams v:0 -show_entries stream=width -of csv=p=0 {src}")
                 {
-                    CreateNoWindow = true
+                    CreateNoWindow = true,
+                    RedirectStandardOutput = true
                 });
 
-                copy.EnableRaisingEvents = true;
+                var video = probe.StandardOutput.ReadToEnd().Length != 0;
 
-                copy.Exited += (_, __) =>
+                probe.WaitForExit();
+
+                foreach (var arg in video ? _videoArgs : _audioArgs)
                 {
-                    if (copy.ExitCode != 0)
+                    var process = Process.Start(new ProcessStartInfo(ffmpeg, $"-v fatal -stats -hide_banner -y -i {src} {arg} {dst}")
                     {
-                        var vcopy = Process.Start(new ProcessStartInfo(RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? "ffmpeg.exe" : "ffmpeg", $"-loglevel fatal -y -i \"{EscapePath(src)}\" -vcodec copy \"{EscapePath(dst)}\"")
-                        {
-                            CreateNoWindow = true
-                        });
+                        CreateNoWindow = true
+                    });
 
-                        vcopy.EnableRaisingEvents = true;
+                    process.WaitForExit();
 
-                        vcopy.Exited += (___, ____) =>
-                        {
-                            if (vcopy.ExitCode != 0)
-                            {
-                                var acopy = Process.Start(new ProcessStartInfo(RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? "ffmpeg.exe" : "ffmpeg", $"-loglevel fatal -y -i \"{EscapePath(src)}\" -acodec copy \"{EscapePath(dst)}\"")
-                                {
-                                    CreateNoWindow = true
-                                });
-
-                                acopy.EnableRaisingEvents = true;
-
-                                acopy.Exited += (_____, ______) =>
-                                {
-                                    if (acopy.ExitCode != 0)
-                                    {
-                                        var nocopy = Process.Start(new ProcessStartInfo(RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? "ffmpeg.exe" : "ffmpeg", $"-y -i \"{EscapePath(src)}\" -b 1G -ab 1G \"{EscapePath(dst)}\"")
-                                        {
-                                            CreateNoWindow = true
-                                        });
-                                    }
-                                };
-                            }
-                        };
+                    if (process.ExitCode == 0)
+                    {
+                        break;
                     }
-                };
+                }
 
-                copy.WaitForExit();
+                Console.WriteLine($"変換完了: {src}");
             };
 
             _watcher.EnableRaisingEvents = true;
