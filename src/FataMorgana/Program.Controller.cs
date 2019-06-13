@@ -226,8 +226,14 @@ namespace AcidChicken.FataMorgana
                 canvas.Clear();
             }
             else if ( // Button
-                bitmap.Width == 695 &&
-                bitmap.Height == 695)
+                bitmap.Width == 781 &&
+                bitmap.Height == 781)
+            {
+                canvas.Clear();
+            }
+            else if ( // Transition
+                bitmap.Width == 1235 &&
+                bitmap.Height == 1235)
             {
                 canvas.Clear();
             }
