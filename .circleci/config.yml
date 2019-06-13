@@ -18,6 +18,7 @@ jobs:
             export DOTNET_ROOT="$HOME/dotnet"
             export PATH="$DOTNET_ROOT:$PATH"
             export DOTNET_SDK_VERSION=3.0.100-preview6-012264
+            env
       - run:
           name: Checking Hashes
           command: |
