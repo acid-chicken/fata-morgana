@@ -26,8 +26,8 @@ workflows:
             export CppCompilerAndLinker=clang
             export DOTNET_SKIP_FIRST_TIME_EXPERIENCE=true
             export NUGET_XMLDOC_MODE=skip
-            export DOTNET_PATH="$HOME/dotnet"
-            export PATH="$DOTNET_PATH:$PATH"
+            export DOTNET_ROOT="$HOME/dotnet"
+            export PATH="$DOTNET_ROOT:$PATH"
             export DOTNET_SDK_VERSION=3.0.100-preview6-012264
             dotnet publish -r osx-x64 -c Release -o dist --version-suffix "osx-$BITRISE_BUILD_NUMBER"
             tar -jcvf "$BITRISE_DEPLOY_DIR/osx-x64.tar.bz2" dist
