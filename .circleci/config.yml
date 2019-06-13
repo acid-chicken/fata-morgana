@@ -22,7 +22,7 @@ jobs:
       - run:
           name: Checking Hashes
           command: |
-            dotnet --version | tee DOTNET_SDK_VERSION
+            /root/dotnet/dotnet --version | tee DOTNET_SDK_VERSION
             zsh -c 'grep PackageReference **/*.csproj' | tee NUGET_PACKAGE_REFERENCES
       - restore_cache:
           keys:
