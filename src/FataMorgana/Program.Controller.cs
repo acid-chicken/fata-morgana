@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -19,11 +18,14 @@ namespace AcidChicken.FataMorgana
         static readonly Uri _audiosUri = new Uri(_baseUri, "/chocoh/audios/");
         static readonly Uri _imagesUri = new Uri(_baseUri, "/chocoh/images/");
         static readonly Uri _fontsUri = new Uri(_baseUri, "/chocoh/fonts/");
-        static readonly HttpClientHandler _handler = new HttpClientHandler()
+        static readonly HttpClientHandler _handler = new HttpClientHandler
         {
             AutomaticDecompression = DecompressionMethods.GZip
         };
-        static readonly HttpClient _http = new HttpClient();
+        static readonly HttpClient _http = new HttpClient(_handler)
+        {
+            DefaultRequestVersion = new Version(2, 0)
+        };
         static readonly ProxyServer _server = new ProxyServer
         {
             ForwardToUpstreamGateway = true
@@ -142,9 +144,7 @@ namespace AcidChicken.FataMorgana
                 return null;
             }
 
-            using var gzip = await response.Content.ReadAsStreamAsync();
-
-            using var raw = new GZipStream(gzip, CompressionMode.Decompress);
+            using var raw = await response.Content.ReadAsStreamAsync();
 
             using var memory = new MemoryStream();
 
