@@ -3,27 +3,47 @@
   <PropertyGroup>
     <OutputType>exe</OutputType>
     <TargetFramework>netcoreapp3.0</TargetFramework>
-    <LangVersion>8</LangVersion>
+    <LangVersion>preview</LangVersion>
     <NullableContextOptions>enable</NullableContextOptions>
     <AssemblyName>fata-morgana</AssemblyName>
-    <Version>1.2.1</Version>
+    <VersionPrefix>1.2.1</VersionPrefix>
     <PublishSingleFile>true</PublishSingleFile>
-    <!-- The property was currently disabled because of bugs.
-    <RootAllApplicationAssemblies>false</RootAllApplicationAssemblies>
-    <IlcGenerateCompleteTypeMetadata>false</IlcGenerateCompleteTypeMetadata>
-    <IlcGenerateStackTraceData>false</IlcGenerateStackTraceData>
-    <IlcDisableReflection>true</IlcDisableReflection>
-    <IlcOptimizationPreference>Size</IlcOptimizationPreference>
-    <IlcFoldIdenticalMethodBodies>true</IlcFoldIdenticalMethodBodies>
-    -->
-    <DebugType Condition="'$(Configuration)' == 'Release'">None</DebugType>
+    <RepoRoot>$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), '.reporoot'))\</RepoRoot>
+    <SrcRoot>$([System.IO.Path]::GetFullPath('$(RepoRoot)src\'))</SrcRoot>
+    <PathMap>$(SrcRoot)=.</PathMap>
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- The property was currently disabled because of bugs.
-    <PackageReference Include="Microsoft.DotNet.ILCompiler" Version="1.0.0-alpha-*" />
-    -->
     <PackageReference Include="SkiaSharp" Version="1.68.0" />
     <PackageReference Include="Titanium.Web.Proxy" Version="3.0.907" />
   </ItemGroup>
+
+  <Choose>
+    <When Condition="'$(Configuration)' == 'Release'">
+      <PropertyGroup>
+        <DebugSymbols>false</DebugSymbols>
+        <DebugType>none</DebugType>
+        <Optimize>true</Optimize>
+        <DefineConstants></DefineConstants>
+        <PublishReadyToRun>true</PublishReadyToRun>
+      </PropertyGroup>
+    </When>
+
+    <Otherwise>
+      <PropertyGroup>
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+        <Optimize>false</Optimize>
+        <DefineConstants>DEBUG;TRACE</DefineConstants>
+        <PublishReadyToRun>false</PublishReadyToRun>
+        <DotGitRoot>$([System.IO.Path]::GetFullPath('$(RepoRoot).git\'))</DotGitRoot>
+        <GitHeadFileContent Condition="Exists('$(DotGitRoot)HEAD')">$([System.IO.File]::ReadAllText('$(DotGitRoot)HEAD').Trim())</GitHeadFileContent>
+        <GitRefPath Condition="$(GitHeadFileContent.StartsWith('ref: '))">$(DotGitRoot)$(GitHeadFileContent.Substring(5))</GitRefPath>
+        <GitHeadSha>0000000000000000000000000000000000000000</GitHeadSha>
+        <GitHeadSha Condition="'$(GitHeadFileContent)' != '' and '$(GitRefPath)' == ''">$(GitHeadFileContent)</GitHeadSha>
+        <GitHeadSha Condition="'$(GitRefPath)' != '' and Exists('$(GitRefPath)')">$([System.IO.File]::ReadAllText('$(GitRefPath)').Trim())</GitHeadSha>
+        <VersionSuffix Condition="'$(GitHeadSha)' != ''">git-$(GitHeadSha)</VersionSuffix>
+      </PropertyGroup>
+    </Otherwise>
+  </Choose>
 </Project>
