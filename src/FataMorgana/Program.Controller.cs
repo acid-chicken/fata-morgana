@@ -209,6 +209,11 @@ namespace AcidChicken.FataMorgana
                     "red" => new SKColor(255, 0, 0, 255),
                     "green" => new SKColor(0, 255, 0, 255),
                     "blue" => new SKColor(0, 0, 255, 255),
+                    "cyan" => new SKColor(0, 255, 255, 255),
+                    "magenta" => new SKColor(255, 0, 255, 255),
+                    "yellow" => new SKColor(255, 255, 0, 255),
+                    "black" => new SKColor(0, 0, 0, 255),
+                    "white" => new SKColor(255, 255, 255, 255),
                     _ => SKColor.Empty
                 };
 
