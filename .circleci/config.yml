@@ -18,11 +18,12 @@ jobs:
             export DOTNET_ROOT="$HOME/dotnet"
             export PATH="$DOTNET_ROOT:$PATH"
             export DOTNET_SDK_VERSION=3.0.100-preview6-012264
+            alias dotnet='/root/dotnet/dotnet'
             env
       - run:
           name: Checking Hashes
           command: |
-            /root/dotnet/dotnet --version | tee DOTNET_SDK_VERSION
+            dotnet --version | tee DOTNET_SDK_VERSION
             zsh -c 'grep PackageReference **/*.csproj' | tee NUGET_PACKAGE_REFERENCES
       - restore_cache:
           keys:
