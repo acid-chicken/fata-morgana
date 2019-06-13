@@ -18,12 +18,11 @@ jobs:
             export DOTNET_ROOT="$HOME/dotnet"
             export PATH="$DOTNET_ROOT:$PATH"
             export DOTNET_SDK_VERSION=3.0.100-preview6-012264
-            alias dotnet='/root/dotnet/dotnet'
             env
       - run:
           name: Checking Hashes
           command: |
-            dotnet --version | tee DOTNET_SDK_VERSION
+            /root/dotnet/dotnet --version | tee DOTNET_SDK_VERSION
             zsh -c 'grep PackageReference **/*.csproj' | tee NUGET_PACKAGE_REFERENCES
       - restore_cache:
           keys:
@@ -35,11 +34,11 @@ jobs:
       - run:
           name: Restoring NuGet Packages
           command: |
-            dotnet restore
+            /root/dotnet/dotnet restore
       - run:
           name: Building Project
           command: |
-            dotnet publish -r linux-x64 -c Release -o dist --version-suffix "linux-$CIRCLE_BUILD_NUM"
+            /root/dotnet/dotnet publish -r linux-x64 -c Release -o dist --version-suffix "linux-$CIRCLE_BUILD_NUM"
             tar -jcvf linux-x64.tar.bz2 dist
       - run:
           name: Checking Hashes
