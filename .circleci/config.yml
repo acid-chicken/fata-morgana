@@ -20,8 +20,8 @@ jobs:
       - run:
           name: Checking Hashes
           command: |
-            dotnet --version > DOTNET_SDK_VERSION
-            zsh -c 'grep PackageReference **/*.csproj' > NUGET_PACKAGE_REFERENCES
+            dotnet --version | tee DOTNET_SDK_VERSION
+            zsh -c 'grep PackageReference **/*.csproj' | tee NUGET_PACKAGE_REFERENCES
       - restore_cache:
           keys:
             - nuget-v1-arch-{{ arch }}-env-{{ .Environment.variableName }}-sdk-{{ checksum "DOTNET_SDK_VERSION" }}-nuget-{{ checksum "NUGET_PACKAGE_REFERENCES" }}-
@@ -41,7 +41,7 @@ jobs:
       - run:
           name: Checking Hashes
           command: |
-            ls -alR ~/.nuget/packages > NUGET_PACKAGES
+            ls -alR ~/.nuget/packages | tee NUGET_PACKAGES
       - save_cache:
           key: nuget-v1-arch-{{ arch }}-env-{{ .Environment.variableName }}-sdk-{{ checksum "DOTNET_SDK_VERSION" }}-nuget-{{ checksum "NUGET_PACKAGE_REFERENCES" }}-{{ checksum "NUGET_PACKAGES" }}
           paths:
