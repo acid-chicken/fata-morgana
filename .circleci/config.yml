@@ -17,6 +17,7 @@ jobs:
             mkdir -p $HOME/dotnet && tar zxf dotnet-sdk-3.0.100-preview6-012264-linux-x64.tar.gz -C $HOME/dotnet
             export DOTNET_ROOT="$HOME/dotnet"
             export PATH="$DOTNET_PATH:$PATH"
+            export DOTNET_SDK_VERSION=3.0.100-preview6-012264
             env
       - run:
           name: Checking Hashes
