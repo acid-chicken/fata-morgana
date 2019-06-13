@@ -1,5 +1,5 @@
 ---
-format_version: '6'
+format_version: '7'
 default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
 project_type: other
 trigger_map:
@@ -16,7 +16,7 @@ workflows:
     - script:
         title: Build Projects
         inputs:
-        - content: |
+        - content: |-
             #!/usr/bin/env bash
             set -e
             set -x
