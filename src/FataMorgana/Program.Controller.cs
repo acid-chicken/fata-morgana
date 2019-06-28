@@ -214,6 +214,7 @@ namespace AcidChicken.FataMorgana
                     "yellow" => new SKColor(255, 255, 0, 255),
                     "black" => new SKColor(0, 0, 0, 255),
                     "white" => new SKColor(255, 255, 255, 255),
+                    "amai" => new SKColor(255, 255, 255, 255),
                     _ => SKColor.Empty
                 };
 
@@ -223,6 +224,30 @@ namespace AcidChicken.FataMorgana
                 }
 
                 canvas.Clear(background);
+            }
+            else if ( // Spine Texture
+                status == "amai" && ( // amai mode only
+                bitmap.Width == 1024 &&
+                bitmap.Height == 1024 ||
+                bitmap.Width == 512 &&
+                bitmap.Width == 512))
+            {
+                var pixels = bitmap.Pixels; // Attention: deep copy
+
+                for (var i = 0; i < pixels.Length; i++)
+                {
+                    var pixel = pixels[i];
+
+                    pixels[i] = new SKColor(0, 0, 0, pixel.Alpha);
+                }
+
+                bitmap.Pixels = pixels; // return (see: L235)
+
+                using var map = bitmap.PeekPixels();
+
+                using var data = map.Encode(new SKWebpEncoderOptions(SKWebpEncoderCompression.Lossless, 0.0f));
+
+                return ("image/webp", data.ToArray());
             }
             else if ( // Bubble
                 bitmap.Width == 840 &&
@@ -247,17 +272,19 @@ namespace AcidChicken.FataMorgana
                 return (response.Headers.FirstOrDefault(x => x.Key.Equals("Content-Type", StringComparison.OrdinalIgnoreCase)).Value?.FirstOrDefault() ?? "", bytes);
             }
 
-            canvas.DrawRect(0, 0, 0, 0, new SKPaint
             {
-            });
+                canvas.DrawRect(0, 0, 0, 0, new SKPaint
+                {
+                });
 
-            canvas.Flush();
+                canvas.Flush();
 
-            using var map = surface.PeekPixels();
+                using var map = surface.PeekPixels();
 
-            using var data = map.Encode(new SKWebpEncoderOptions(SKWebpEncoderCompression.Lossless, 0.0f));
+                using var data = map.Encode(new SKWebpEncoderOptions(SKWebpEncoderCompression.Lossless, 0.0f));
 
-            return ("image/webp", data.ToArray());
+                return ("image/webp", data.ToArray());
+            }
         }
     }
 }
