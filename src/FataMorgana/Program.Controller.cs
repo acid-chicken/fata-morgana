@@ -252,6 +252,8 @@ namespace AcidChicken.FataMorgana
                 return ("image/webp", data.ToArray());
             }
             else if ( // Bubble
+                bitmap.Width == 329 &&
+                bitmap.Height == 116 ||
                 bitmap.Width == 840 &&
                 bitmap.Height == 162)
             {
