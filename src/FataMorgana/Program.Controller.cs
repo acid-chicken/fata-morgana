@@ -172,6 +172,8 @@ namespace AcidChicken.FataMorgana
                 return (null, Array.Empty<byte>());
             }
 
+            var contentType = response.Headers.FirstOrDefault(x => x.Key.Equals("Content-Type", StringComparison.OrdinalIgnoreCase)).Value?.FirstOrDefault() ?? "";
+
             using var body = await response.Content.ReadAsStreamAsync();
 
             using var memory = new MemoryStream();
@@ -188,14 +190,14 @@ namespace AcidChicken.FataMorgana
 
             if (bitmap is null)
             {
-                return (response.Headers.FirstOrDefault(x => x.Key.Equals("Content-Type", StringComparison.OrdinalIgnoreCase)).Value?.FirstOrDefault() ?? "", bytes);
+                return (contentType, bytes);
             }
 
             using var surface = SKSurface.Create(new SKImageInfo(bitmap.Width, bitmap.Height));
 
             if (surface is null)
             {
-                return (response.Headers.FirstOrDefault(x => x.Key.Equals("Content-Type", StringComparison.OrdinalIgnoreCase)).Value?.FirstOrDefault() ?? "", bytes);
+                return (contentType, bytes);
             }
 
             using var canvas = surface.Canvas;
@@ -220,7 +222,7 @@ namespace AcidChicken.FataMorgana
 
                 if (background == SKColor.Empty)
                 {
-                    return (response.Headers.FirstOrDefault(x => x.Key.Equals("Content-Type", StringComparison.OrdinalIgnoreCase)).Value?.FirstOrDefault() ?? "", bytes);
+                    return (contentType, bytes);
                 }
 
                 canvas.Clear(background);
@@ -269,7 +271,7 @@ namespace AcidChicken.FataMorgana
             }
             else
             {
-                return (response.Headers.FirstOrDefault(x => x.Key.Equals("Content-Type", StringComparison.OrdinalIgnoreCase)).Value?.FirstOrDefault() ?? "", bytes);
+                return (contentType, bytes);
             }
 
             {
