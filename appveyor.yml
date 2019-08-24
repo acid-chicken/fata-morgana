@@ -1,4 +1,4 @@
-version: 1.4.1-win-{build}
+version: 1.4.2-win-{build}
 image: Visual Studio 2019 Preview
 configuration: Release
 platform: x64
@@ -19,9 +19,9 @@ cache:
   - 'packages'
 before_build:
 - pwsh: >-
-    Invoke-WebRequest "https://download.visualstudio.microsoft.com/download/pr/4e73514f-0646-4600-bdc2-38c90fc207b6/22ad70cbe1a254177e6d7b7f7e7425f8/dotnet-sdk-3.0.100-preview6-012264-win-x64.zip" -OutFile "dotnet-sdk-3.0.100-preview6-012264-win-x64.zip"
+    Invoke-WebRequest "https://download.visualstudio.microsoft.com/download/pr/701abc79-0ceb-406c-aa4b-5e429c665448/05424ebe3bdb06688b910664fbff0671/dotnet-sdk-3.0.100-preview8-013656-win-x64.zip" -OutFile "dotnet-sdk-3.0.100-preview8-013656-win-x64.zip"
 
-    Expand-Archive "dotnet-sdk-3.0.100-preview6-012264-win-x64.zip" -DestinationPath "dotnet"
+    Expand-Archive "dotnet-sdk-3.0.100-preview8-win-x64.zip" -DestinationPath "dotnet"
 
     Set-Item Env:Path "C:\projects\fata-morgana\dotnet;$Env:Path"
 build_script:
