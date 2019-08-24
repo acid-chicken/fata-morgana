@@ -20,15 +20,15 @@ workflows:
             #!/usr/bin/env bash
             set -e
             set -x
-            wget https://download.visualstudio.microsoft.com/download/pr/079e5b24-187f-4087-9a54-18285382f3e6/2ae97c55aae5e2c9472555839a48a83c/dotnet-sdk-3.0.100-preview6-012264-osx-x64.tar.gz
+            wget https://download.visualstudio.microsoft.com/download/pr/a974d0a6-d03a-41c1-9dfd-f5884655fd33/cf9d659401cca08c3c55374b3cb8b629/dotnet-sdk-3.0.100-preview8-013656-osx-x64.tar.gz
             mkdir -p $HOME/dotnet
-            tar zxf dotnet-sdk-3.0.100-preview6-012264-osx-x64.tar.gz -C $HOME/dotnet
+            tar zxf dotnet-sdk-3.0.100-preview8-013656-osx-x64.tar.gz -C $HOME/dotnet
             export CppCompilerAndLinker=clang
             export DOTNET_SKIP_FIRST_TIME_EXPERIENCE=true
             export NUGET_XMLDOC_MODE=skip
             export DOTNET_ROOT="$HOME/dotnet"
             export PATH="$DOTNET_ROOT:$PATH"
-            export DOTNET_SDK_VERSION=3.0.100-preview6-012264
+            export DOTNET_SDK_VERSION=3.0.100-preview8-013656
             dotnet publish -r osx-x64 -c Release -o dist --version-suffix "osx-$BITRISE_BUILD_NUMBER"
             tar -jcvf "$BITRISE_DEPLOY_DIR/osx-x64.tar.bz2" dist
     - deploy-to-bitrise-io: {}
