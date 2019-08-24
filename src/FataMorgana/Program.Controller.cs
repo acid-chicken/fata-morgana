@@ -279,6 +279,84 @@ namespace AcidChicken.FataMorgana
             {
                 canvas.Clear();
             }
+            else if ( // Room Background
+                bitmap.Width == 866 &&
+                bitmap.Height == 353)
+            {
+                canvas.Clear();
+            }
+            else if ( // Fes Right Slot Character Icon
+                bitmap.Width == 110 &&
+                bitmap.Height == 64)
+            {
+                canvas.Clear();
+            }
+            else if ( // Fes Bottom Slot Character Icon
+                bitmap.Width == 150 &&
+                bitmap.Height == 96)
+            {
+                canvas.Clear();
+            }
+            else if ( // Fes Right Slot Character Icon Alternative
+                bitmap.Width == 184 &&
+                bitmap.Height == 96)
+            {
+                canvas.Clear();
+            }
+            else if ( // Fes Background Assets
+                bitmap.Width == 908 &&
+                bitmap.Height == 908)
+            {
+                canvas.Clear();
+            }
+            else if ( // Fes Number Assets
+                bitmap.Width == 506 &&
+                bitmap.Height == 506)
+            {
+                canvas.Clear();
+            }
+            else if ( // Fes Order Assets
+                bitmap.Width == 163 &&
+                bitmap.Height == 163)
+            {
+                canvas.Clear();
+            }
+            else if ( // Fes Effects
+                bitmap.Width == 525 &&
+                bitmap.Height == 155 ||
+                bitmap.Width == 128 &&
+                bitmap.Height == 128 ||
+                bitmap.Width == 500 &&
+                bitmap.Height == 250 ||
+                bitmap.Width == 352 &&
+                bitmap.Height == 888 ||
+                bitmap.Width == 500 &&
+                bitmap.Height == 204 ||
+                bitmap.Width == 511 &&
+                bitmap.Height == 102 ||
+                bitmap.Width == 320 &&
+                bitmap.Height == 460 ||
+                bitmap.Width == 480 &&
+                bitmap.Height == 480 ||
+                bitmap.Width == 500 &&
+                bitmap.Height == 100 ||
+                bitmap.Width == 480 &&
+                bitmap.Height == 172 ||
+                bitmap.Width == 520 &&
+                bitmap.Height == 100 ||
+                bitmap.Width == 510 &&
+                bitmap.Height == 510 ||
+                bitmap.Width == 212 &&
+                bitmap.Height == 212 ||
+                bitmap.Width == 454 &&
+                bitmap.Height == 454 ||
+                bitmap.Width == 510 &&
+                bitmap.Height == 510 ||
+                bitmap.Width == 525 &&
+                bitmap.Height == 155)
+            {
+                canvas.Clear();
+            }
             else
             {
                 return (contentType, bytes);
