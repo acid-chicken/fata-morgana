@@ -3,7 +3,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: 346design/dotnet.corert
+      - image: 346design/dotnet.sdk
         environment:
           CppCompilerAndLinker: clang
           DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
@@ -13,11 +13,11 @@ jobs:
       - run:
           name: Install latest .NET Core SDK manually
           command: |
-            wget https://download.visualstudio.microsoft.com/download/pr/72ce4d40-9063-4a2e-a962-0bf2574f75d1/5463bb92cff4f9c76935838d1efbc757/dotnet-sdk-3.0.100-preview6-012264-linux-x64.tar.gz
-            mkdir -p $HOME/dotnet && tar zxf dotnet-sdk-3.0.100-preview6-012264-linux-x64.tar.gz -C $HOME/dotnet
+            wget https://download.visualstudio.microsoft.com/download/pr/a0e368ac-7161-4bde-a139-1a3ef5a82bbe/439cdbb58950916d3718771c5d986c35/dotnet-sdk-3.0.100-preview8-013656-linux-x64.tar.gz
+            mkdir -p $HOME/dotnet && tar zxf dotnet-sdk-3.0.100-preview8-013656-linux-x64.tar.gz -C $HOME/dotnet
             export DOTNET_ROOT="$HOME/dotnet"
             export PATH="$DOTNET_ROOT:$PATH"
-            export DOTNET_SDK_VERSION=3.0.100-preview6-012264
+            export DOTNET_SDK_VERSION=3.0.100-preview8-013656
             env
       - run:
           name: Checking Hashes
