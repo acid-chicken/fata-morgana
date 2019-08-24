@@ -206,26 +206,34 @@ namespace AcidChicken.FataMorgana
                 bitmap.Width == 1136 &&
                 bitmap.Height == 640)
             {
-                var background = status switch
+                if ( // JFIF (JPEG)
+                    bytes.AsSpan().StartsWith(stackalloc byte[] { 0xff, 0xd8, 0xff, 0xe0 }))
                 {
-                    "red" => new SKColor(255, 0, 0, 255),
-                    "green" => new SKColor(0, 255, 0, 255),
-                    "blue" => new SKColor(0, 0, 255, 255),
-                    "cyan" => new SKColor(0, 255, 255, 255),
-                    "magenta" => new SKColor(255, 0, 255, 255),
-                    "yellow" => new SKColor(255, 255, 0, 255),
-                    "black" => new SKColor(0, 0, 0, 255),
-                    "white" => new SKColor(255, 255, 255, 255),
-                    "amai" => new SKColor(255, 255, 255, 255),
-                    _ => SKColor.Empty
-                };
+                    var background = status switch
+                    {
+                        "red" => new SKColor(255, 0, 0, 255),
+                        "green" => new SKColor(0, 255, 0, 255),
+                        "blue" => new SKColor(0, 0, 255, 255),
+                        "cyan" => new SKColor(0, 255, 255, 255),
+                        "magenta" => new SKColor(255, 0, 255, 255),
+                        "yellow" => new SKColor(255, 255, 0, 255),
+                        "black" => new SKColor(0, 0, 0, 255),
+                        "white" => new SKColor(255, 255, 255, 255),
+                        "amai" => new SKColor(255, 255, 255, 255),
+                        _ => SKColor.Empty
+                    };
 
-                if (background == SKColor.Empty)
-                {
-                    return (contentType, bytes);
+                    if (background == SKColor.Empty)
+                    {
+                        return (contentType, bytes);
+                    }
+
+                    canvas.Clear(background);
                 }
-
-                canvas.Clear(background);
+                else
+                {
+                    canvas.Clear();
+                }
             }
             else if ( // Spine Texture
                 status == "amai" && ( // amai mode only
