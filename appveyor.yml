@@ -1,4 +1,4 @@
-version: 1.4.3-win-{build}
+version: 1.4.4-win-{build}
 image: Visual Studio 2019 Preview
 configuration: Release
 platform: x64

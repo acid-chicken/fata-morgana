@@ -6,7 +6,7 @@
     <LangVersion>preview</LangVersion>
     <NullableContextOptions>enable</NullableContextOptions>
     <AssemblyName>fata-morgana</AssemblyName>
-    <VersionPrefix>1.4.3</VersionPrefix>
+    <VersionPrefix>1.4.4</VersionPrefix>
     <PublishSingleFile>true</PublishSingleFile>
     <RepoRoot>$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), '.reporoot'))\</RepoRoot>
     <SrcRoot>$([System.IO.Path]::GetFullPath('$(RepoRoot)src\'))</SrcRoot>
