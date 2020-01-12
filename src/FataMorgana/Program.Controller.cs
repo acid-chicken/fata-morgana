@@ -281,6 +281,24 @@ namespace AcidChicken.FataMorgana
             {
                 canvas.Clear();
             }
+            else if ( // Produce Ready Background
+                bitmap.Width == 1138 &&
+                bitmap.Height == 1138)
+            {
+                canvas.Clear();
+            }
+            else if ( // Produce Ready SD Pedestal
+                bitmap.Width == 148 &&
+                bitmap.Height == 162 ||
+                bitmap.Width == 65 &&
+                bitmap.Height == 65 ||
+                bitmap.Width == 50 &&
+                bitmap.Height == 50 ||
+                bitmap.Width == 44 &&
+                bitmap.Height == 44)
+            {
+                canvas.Clear();
+            }
             else if ( // Room Background
                 bitmap.Width == 866 &&
                 bitmap.Height == 353)
