@@ -9,7 +9,7 @@
     <GenerateErrorForMissingTargetingPacks>false</GenerateErrorForMissingTargetingPacks>
     <RuntimeIdentifiers>win-x64;osx-x64;linux-x64;linux-musl-x64;linux-arm</RuntimeIdentifiers>
     <AssemblyName>fata-morgana</AssemblyName>
-    <VersionPrefix>1.4.7</VersionPrefix>
+    <VersionPrefix>1.4.8</VersionPrefix>
     <PublishSingleFile>true</PublishSingleFile>
     <RepoRoot>$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), '.reporoot'))\</RepoRoot>
     <SrcRoot>$([System.IO.Path]::GetFullPath('$(RepoRoot)src\'))</SrcRoot>
