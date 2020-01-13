@@ -6,7 +6,7 @@ jobs:
       - image: 346design/dotnet.sdk
         environment:
           CppCompilerAndLinker: clang
-          DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+          DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 'true'
           NUGET_XMLDOC_MODE: skip
     steps:
       - checkout
