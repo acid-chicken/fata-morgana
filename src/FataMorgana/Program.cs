@@ -7,8 +7,10 @@ namespace AcidChicken.FataMorgana
 {
     partial class Program
     {
-        static async Task Main(string[] args)
+#pragma warning disable IDE0060
+        static async Task Main(string[] args /* IDE0060 */)
         {
+#pragma warning restore IDE0060
             Console.Write("大石泉");
 
             ServerStart();
