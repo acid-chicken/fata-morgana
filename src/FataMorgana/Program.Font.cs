@@ -1,3 +1,5 @@
+#nullable enable
+
 namespace AcidChicken.FataMorgana
 {
     partial class Program
