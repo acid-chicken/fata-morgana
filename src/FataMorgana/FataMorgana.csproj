@@ -5,6 +5,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <LangVersion>preview</LangVersion>
     <NullableContextOptions>enable</NullableContextOptions>
+    <Deterministic>true</Deterministic>
+    <GenerateErrorForMissingTargetingPacks>false</GenerateErrorForMissingTargetingPacks>
     <RuntimeIdentifiers>win-x64;osx-x64;linux-x64;linux-musl-x64;linux-arm</RuntimeIdentifiers>
     <AssemblyName>fata-morgana</AssemblyName>
     <VersionPrefix>1.4.6</VersionPrefix>
