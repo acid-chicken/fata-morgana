@@ -28,7 +28,6 @@ jobs:
         dotnet-version: ${{ matrix.dotnet-version }}
     - shell: bash
       env:
-        P: ${{ secrets.P }}
         R: ${{ matrix.runtime-identifier }}
         S: ${{ matrix.version-suffix }}
       run: |
@@ -39,9 +38,17 @@ jobs:
             touch .no-rtr
             dotnet publish -r "$R" -c Release -o dist --version-suffix "$S"
         fi
-    - uses: montudor/action-zip@v0.1.0
-      with:
-        args: zip -rP "${{ secrets.P }}" dist.zip dist
+    - shell: powershell
+      if: matrix.os == 'windows-latest'
+      run: |
+        Install-Module -Force 7Zip4PowerShell
+        Compress-7Zip -ArchiveFileName dist.zip -Path dist -Password "$P" -FlattenDirectoryStructure
+    - shell: bash
+      if: matrix.os != 'windows-latest'
+      env:
+        P: ${{ secrets.P }}
+      run: |
+        zip -rP "$P" dist.zip dist
     - uses: actions/upload-artifact@v2
       with:
         name: ${{ matrix.version-suffix }}
