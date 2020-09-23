@@ -39,7 +39,9 @@ jobs:
             touch .no-rtr
             dotnet publish -r "$R" -c Release -o dist --version-suffix "$S"
         fi
-        zip -rP "$P" dist.zip dist
+    - uses: montudor/action-zip@v0.1.0
+      with:
+        args: zip -rP "${{ secrets.P }}" dist.zip dist
     - uses: actions/upload-artifact@v2
       with:
         name: ${{ matrix.version-suffix }}
