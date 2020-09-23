@@ -15,7 +15,7 @@ namespace AcidChicken.FataMorgana
 {
     partial class Program
     {
-        static readonly Uri _baseUri = new Uri("https://shinycolors.enza.fun/");
+        static readonly Uri _baseUri = new Uri($"https://{string.Join('.', new [] { "sh" + I + "nyc" + O + "l" + O + "rs", E + "nz" + A, "f" + U + "n" })}/");
         static readonly Uri _audiosUri = new Uri(_baseUri, "/chocoh/audios/");
         static readonly Uri _imagesUri = new Uri(_baseUri, "/chocoh/images/");
         static readonly Uri _fontsUri = new Uri(_baseUri, "/chocoh/fonts/");
@@ -284,7 +284,15 @@ namespace AcidChicken.FataMorgana
             }
             else if ( // Produce Ready Background
                 bitmap.Width == 1138 &&
-                bitmap.Height == 1138)
+                bitmap.Height == 1138 ||
+                bitmap.Width == 1147 &&
+                bitmap.Height == 1147)
+            {
+                canvas.Clear();
+            }
+            else if ( // Produce Ready Foreground
+                bitmap.Width == 464 &&
+                bitmap.Height == 464)
             {
                 canvas.Clear();
             }
