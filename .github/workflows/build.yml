@@ -53,6 +53,8 @@ jobs:
         fi
     - shell: powershell
       if: matrix.os == 'windows-latest'
+      env:
+        P: ${{ secrets.P }}
       run: |
         Install-Module -Force 7Zip4PowerShell
         Compress-7Zip -ArchiveFileName dist.zip -Path dist -Password "$P" -FlattenDirectoryStructure
