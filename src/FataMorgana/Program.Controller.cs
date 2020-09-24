@@ -314,6 +314,12 @@ namespace AcidChicken.FataMorgana
             {
                 canvas.Clear();
             }
+            else if ( // Room Foreground
+                bitmap.Width == 64 &&
+                bitmap.Height == 64)
+            {
+                canvas.Clear();
+            }
             else if ( // Fes Right Slot Character Icon
                 bitmap.Width == 110 &&
                 bitmap.Height == 64)
