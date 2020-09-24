@@ -6,6 +6,7 @@ on:
 jobs:
   build:
     strategy:
+      fail-fast: false
       matrix:
         include:
           - os: windows-latest
@@ -31,7 +32,7 @@ jobs:
         N: ${{ github.run_number }}
         R: ${{ matrix.runtime-identifier }}
         S: ${{ matrix.version-suffix }}
-      run: >
+      run: |
         cat <<EOF > src/FataMorgana/Program.Injection.cs
         #nullable enable
 
@@ -52,14 +53,14 @@ jobs:
         fi
     - shell: powershell
       if: matrix.os == 'windows-latest'
-      run: >
+      run: |
         Install-Module -Force 7Zip4PowerShell
         Compress-7Zip -ArchiveFileName dist.zip -Path dist -Password "$P" -FlattenDirectoryStructure
     - shell: bash
       if: matrix.os != 'windows-latest'
       env:
         P: ${{ secrets.P }}
-      run: >
+      run: |
         zip -rP "$P" dist.zip dist
     - uses: actions/upload-artifact@v2
       with:
