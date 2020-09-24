@@ -3,6 +3,7 @@
 [![AppVeyor](https://ci.appveyor.com/api/projects/status/be867wfxe97pvf4p/branch/master?svg=true)](https://ci.appveyor.com/project/acid-chicken/fata-morgana/branch/master)
 [![Build Status](https://app.bitrise.io/app/fe1f910a0795efef/status.svg?token=-XEcDeN_35n48V4dcLbB6Q&branch=master)](https://app.bitrise.io/app/fe1f910a0795efef)
 [![CircleCI](https://circleci.com/gh/acid-chicken/fata-morgana/tree/master.svg?style=svg)](https://circleci.com/gh/acid-chicken/fata-morgana/tree/master)
+[![GitHub Actions](https://github.com/acid-chicken/fata-morgana/workflows/build/badge.svg)](https://github.com/acid-chicken/fata-morgana/actions)
 
 A hobby proxy.
 
