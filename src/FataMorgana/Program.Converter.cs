@@ -27,15 +27,15 @@ namespace AcidChicken.FataMorgana
         };
         static readonly IReadOnlyCollection<string> _videoArgs = new []
         {
-            "-vcodec copy -acodec copy",
-            "-vcodec copy -b:a 1G",
-            "-b:v 1G -acodec copy",
-            "-b:v 1G -b:a 1G"
+            "-c:v copy -c:a copy",
+            "-c:v copy -b:a 1G -af astats",
+            "-b:v 1G -c:a copy",
+            "-b:v 1G -b:a 1G -af astats"
         };
         static readonly IReadOnlyCollection<string> _audioArgs = new []
         {
-            // "-acodec copy",
-            "-b:a 1G"
+            // "-c:a copy",
+            "-b:a 1G -af astats"
         };
         static readonly FileSystemWatcher _watcher = new FileSystemWatcher(_inPath)
         {
