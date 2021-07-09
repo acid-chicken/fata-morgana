@@ -340,7 +340,7 @@ namespace AcidChicken.FataMorgana
             {
                 canvas.Clear();
             }
-            else if ( // Road Effects
+            else if ( // Road Background
                 bitmap.Width == 1073 &&
                 bitmap.Height == 1073)
             {
@@ -358,7 +358,15 @@ namespace AcidChicken.FataMorgana
                 bitmap.Width == 418 &&
                 bitmap.Height == 418 ||
                 bitmap.Width == 210 &&
-                bitmap.Height == 144)
+                bitmap.Height == 144 ||
+                bitmap.Width == 210 &&
+                bitmap.Height == 112 ||
+                bitmap.Width == 96 &&
+                bitmap.Height == 96 ||
+                bitmap.Width == 86 &&
+                bitmap.Height == 86 ||
+                bitmap.Width == 40 &&
+                bitmap.Height == 40)
             {
                 canvas.Clear();
             }
