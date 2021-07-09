@@ -341,6 +341,8 @@ namespace AcidChicken.FataMorgana
                 canvas.Clear();
             }
             else if ( // Road Effects
+                bitmap.Width == 1082 &&
+                bitmap.Height == 1082 ||
                 bitmap.Width == 1073 &&
                 bitmap.Height == 1073 ||
                 bitmap.Width == 1054 &&
@@ -439,6 +441,12 @@ namespace AcidChicken.FataMorgana
                 bitmap.Height == 510 ||
                 bitmap.Width == 525 &&
                 bitmap.Height == 155)
+            {
+                canvas.Clear();
+            }
+            else if ( // General Effects
+                bitmap.Width == 303 &&
+                bitmap.Height == 303)
             {
                 canvas.Clear();
             }
