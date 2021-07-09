@@ -239,6 +239,20 @@ namespace AcidChicken.FataMorgana
                 }
             }
             else if ( // Spine Texture
+                status.Split('_')[1] == "largeonly" &&
+                bitmap.Width == 512 &&
+                bitmap.Height == 512)
+            {
+                canvas.Clear();
+            }
+            else if ( // Spine Texture
+                status.Split('_')[1] == "smallonly" &&
+                bitmap.Width == 1024 &&
+                bitmap.Height == 1024)
+            {
+                canvas.Clear();
+            }
+            else if ( // Spine Texture
                 status.Split('_')[0] == "amai" && ( // amai mode only
                 bitmap.Width == 1024 &&
                 bitmap.Height == 1024 ||
