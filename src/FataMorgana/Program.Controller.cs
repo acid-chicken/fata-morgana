@@ -223,7 +223,7 @@ namespace AcidChicken.FataMorgana
                         "yellow" => new SKColor(255, 255, 0, 255),
                         "black" => new SKColor(0, 0, 0, 255),
                         "white" => new SKColor(255, 255, 255, 255),
-                        "amai" => new SKColor(255, 255, 255, 255),
+                        "amai" => new SKColor(0, 0, 0, 255),
                         _ => SKColor.Empty
                     };
 
@@ -269,7 +269,7 @@ namespace AcidChicken.FataMorgana
                 {
                     var pixel = pixels[i];
 
-                    pixels[i] = new SKColor(0, 0, 0, pixel.Alpha);
+                    pixels[i] = new SKColor(255, 255, 255, pixel.Alpha);
                 }
 
                 bitmap.Pixels = pixels; // return (see: L235)
@@ -357,6 +357,8 @@ namespace AcidChicken.FataMorgana
                 bitmap.Height == 642 ||
                 bitmap.Width == 418 &&
                 bitmap.Height == 418 ||
+                bitmap.Width == 320 &&
+                bitmap.Height == 320 ||
                 bitmap.Width == 210 &&
                 bitmap.Height == 144 ||
                 bitmap.Width == 210 &&
