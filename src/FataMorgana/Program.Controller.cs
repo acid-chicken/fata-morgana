@@ -174,6 +174,7 @@ namespace AcidChicken.FataMorgana
             }
 
             var contentType = response.Headers.FirstOrDefault(x => x.Key.Equals("Content-Type", StringComparison.OrdinalIgnoreCase)).Value?.FirstOrDefault() ?? "";
+            var tokens = status.Split('_');
 
             using var body = await response.Content.ReadAsStreamAsync();
 
@@ -239,21 +240,24 @@ namespace AcidChicken.FataMorgana
                 }
             }
             else if ( // Spine Texture
-                status.Split('_')[1] == "largeonly" &&
+                tokens.Length >= 2 &&
+                tokens[1] == "largeonly" &&
                 bitmap.Width == 512 &&
                 bitmap.Height == 512)
             {
                 canvas.Clear();
             }
             else if ( // Spine Texture
-                status.Split('_')[1] == "smallonly" &&
+                tokens.Length >= 2 &&
+                tokens[1] == "smallonly" &&
                 bitmap.Width == 1024 &&
                 bitmap.Height == 1024)
             {
                 canvas.Clear();
             }
             else if ( // Spine Texture
-                status.Split('_')[0] == "amai" && ( // amai mode only
+                tokens.Length >= 1 &&
+                tokens[0] == "amai" && ( // amai mode only
                 bitmap.Width == 1024 &&
                 bitmap.Height == 1024 ||
                 bitmap.Width == 512 &&
