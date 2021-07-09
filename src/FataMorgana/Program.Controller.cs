@@ -205,12 +205,14 @@ namespace AcidChicken.FataMorgana
 
             if ( // Background
                 bitmap.Width == 1136 &&
-                bitmap.Height == 640)
+                bitmap.Height == 640 ||
+                bitmap.Width == 1136 &&
+                bitmap.Height == 1280)
             {
                 if ( // JFIF (JPEG)
                     bytes.AsSpan().StartsWith(stackalloc byte[] { 0xff, 0xd8, 0xff, 0xe0 }))
                 {
-                    var background = status switch
+                    var background = status.Split('_')[0] switch
                     {
                         "red" => new SKColor(255, 0, 0, 255),
                         "green" => new SKColor(0, 255, 0, 255),
@@ -237,7 +239,7 @@ namespace AcidChicken.FataMorgana
                 }
             }
             else if ( // Spine Texture
-                status == "amai" && ( // amai mode only
+                status.Split('_')[0] == "amai" && ( // amai mode only
                 bitmap.Width == 1024 &&
                 bitmap.Height == 1024 ||
                 bitmap.Width == 512 &&
@@ -317,6 +319,28 @@ namespace AcidChicken.FataMorgana
             else if ( // Room Foreground
                 bitmap.Width == 64 &&
                 bitmap.Height == 64)
+            {
+                canvas.Clear();
+            }
+            else if ( // Road Effects
+                bitmap.Width == 1073 &&
+                bitmap.Height == 1073)
+            {
+                canvas.Clear();
+            }
+            else if ( // Road Effects
+                bitmap.Width == 1000 &&
+                bitmap.Height == 1000 ||
+                bitmap.Width == 912 &&
+                bitmap.Height == 544 ||
+                bitmap.Width == 646 &&
+                bitmap.Height == 646 ||
+                bitmap.Width == 642 &&
+                bitmap.Height == 642 ||
+                bitmap.Width == 418 &&
+                bitmap.Height == 418 ||
+                bitmap.Width == 210 &&
+                bitmap.Height == 144)
             {
                 canvas.Clear();
             }
